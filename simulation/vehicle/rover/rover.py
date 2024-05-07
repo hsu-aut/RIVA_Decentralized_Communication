@@ -111,7 +111,7 @@ class Rover:
         elif self.comm_type == "Integrated":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
-            integrated_comm(self, self.comm_candidates, self.instantiated_rovers)
+                integrated_comm(self, self.comm_candidates, self.instantiated_rovers)
         else:
             if self.comm_candidates:
                 full_comm(self, self.comm_candidates, self.instantiated_rovers)
