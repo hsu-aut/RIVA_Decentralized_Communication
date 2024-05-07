@@ -101,7 +101,7 @@ class Rover:
         elif self.comm_type == "Timing_Selective":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
-                time_triggered_comm(self, self.comm_candidates, self.instantiated_rovers)
+                timing_selective_comm(self, self.comm_candidates, self.instantiated_rovers)
         elif self.comm_type == "Content_Selective":
             if self.comm_candidates:
                 content_selective_comm(self, self.comm_candidates, self.instantiated_rovers)
