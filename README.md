@@ -1,5 +1,7 @@
 # RIVA_Decentralized_Communication
 
+Preliminaries:
+  1. Install necessary requirements --> pip install requirements.txt
 
 Using the Map Generator:
   1. Open the file "map.xlsx" and define the positions of obstacles
