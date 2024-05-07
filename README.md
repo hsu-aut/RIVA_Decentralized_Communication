@@ -1,1 +1,1 @@
-# RIVA_Decentralized_Communicationribution
+# RIVA_Decentralized_Communication
