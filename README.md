@@ -6,7 +6,7 @@
 ## Using the Map Generator:
   1. Open the file "map.xlsx" and define the positions of obstacles
        - Black cells will be obstacles
-       - No Colour will be free of obstacles
+       - White cells will be free of obstacles
   2. Open the folder "map_generator" in your Integrated Development Environments (IDE), i.e. VS Code
   3. Run the file "map_generator.py" --> a list with the coordinates of the obstacles will be generated --> obstacles.py
   4. Copy the file into the folder "simulation/world"
