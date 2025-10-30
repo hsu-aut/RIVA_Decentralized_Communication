@@ -15,8 +15,8 @@
   1. Open the folder "simulation" in your IDE
   2. Configure your individual simulation in the file constants.py
        - CYCLES: 1-10, defining how many simulation cycles shall be performed
-       - NUMBER_OF_ROVERS: 2-10, defining how many rovers shall be included
-       - COMM_TYPE: [No_Comm, Timing_Selective, Content_Selective, Receiver_Selective, Integrated, Full_Comm], defining the communication type for the simulation cycles
+       - NUMBER_OF_ROVERS: 2-50, defining how many rovers shall be included
+       - COMM_TYPE: [NoCom, PlaCom, UtiCom, RecCom, IntCom, FulCom], defining the communication type for the simulation cycles
        - further configuration parameters, if necessary
   3. run the file "main.py"
   4. The simulation output data will be saved in several files in simulation/output_logger/plotted_data
