@@ -25,7 +25,6 @@ def main():
         # rover startpositions
         #START_POSITIONS = {1: (125, 50), 2: (165, 50), 3: (250, 450), 4: (480, 440), 5: (480, 560), 6: (40, 550), 7: (30, 40), 8: (90, 330), 9: (390, 130), 10: (570, 580)}
         #START_POSITIONS = {1: (150, 170), 2: (520, 310), 3: (250, 450), 4: (480, 440), 5: (480, 560), 6: (40, 550), 7: (30, 40), 8: (90, 330), 9: (390, 130), 10: (570, 580)}
-        #START_POSITIONS = generate_random_start_positions(NUMBER_OF_ROVERS, OBSTACLES, WIDTH, HEIGHT, INITIAL_DISTANCE)
         start_time = pygame.time.get_ticks()
                     
         # initialising count variables
