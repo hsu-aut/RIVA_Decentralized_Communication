@@ -98,20 +98,30 @@ class Rover:
         # perform communication
         if self.comm_type == "No_Comm":
             no_comm()
-        elif self.comm_type == "Timing_Selective":
+        elif self.comm_type == "Time_Comm":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
-                timing_selective_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Content_Selective":
-            if self.comm_candidates:
-                content_selective_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Receiver_Selective":
-            if self.comm_candidates:
-                receiver_selective_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Integrated":
+                time_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "Plan_Aware":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
-                integrated_comm(self, self.comm_candidates, self.instantiated_rovers)
+                plan_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "Utility_Aware":
+            if self.comm_candidates:
+                utility_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "Content_Comm":
+            if self.comm_candidates:
+                content_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "Receiver_Comm":
+            if self.comm_candidates:
+                receiver_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "Receiver_Aware":
+            if self.comm_candidates:
+                receiver_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
+        elif self.comm_type == "CAIC":
+            if self.comm_active and self.comm_candidates:
+                self.comm_active = False
+                caic_comm(self, self.comm_candidates, self.instantiated_rovers)
         else:
             if self.comm_candidates:
                 full_comm(self, self.comm_candidates, self.instantiated_rovers)

@@ -1,5 +1,6 @@
 from constants import *
 from world.obstacles import OBSTACLES
+from world.start_positions import START_POSITIONS
 from world.functions import *
 from vehicle.rover.rover import Rover
 from vehicle.draw_functions import *
@@ -19,14 +20,12 @@ def main():
  
     rover_times_data = [[] for i in range(NUMBER_OF_ROVERS+3)]          # list to store the elapsed time to reach the target per rover and the performed communications
     network_load_data = [[0] for i in range(CYCLES * 2)]                # list to store the network load per time
-    mean_EAR_data = [[0] for i in range(CYCLES * 2)]                    # list to store the mean of Environmental Awareness Ratio (EAR)
     
     for sim_cycle in range(CYCLES):
         # rover startpositions
         #START_POSITIONS = {1: (125, 50), 2: (165, 50), 3: (250, 450), 4: (480, 440), 5: (480, 560), 6: (40, 550), 7: (30, 40), 8: (90, 330), 9: (390, 130), 10: (570, 580)}
         #START_POSITIONS = {1: (150, 170), 2: (520, 310), 3: (250, 450), 4: (480, 440), 5: (480, 560), 6: (40, 550), 7: (30, 40), 8: (90, 330), 9: (390, 130), 10: (570, 580)}
-        START_POSITIONS = generate_random_start_positions(NUMBER_OF_ROVERS, OBSTACLES, WIDTH, HEIGHT, INITIAL_DISTANCE)
-        
+        #START_POSITIONS = generate_random_start_positions(NUMBER_OF_ROVERS, OBSTACLES, WIDTH, HEIGHT, INITIAL_DISTANCE)
         start_time = pygame.time.get_ticks()
                     
         # initialising count variables
@@ -36,7 +35,7 @@ def main():
         not_useful_comms = 0
         
         # generating rover instances
-        rovers = [Rover(ID, START_POSITIONS[ID], TARGET_COORDINATES, WIDTH, HEIGHT, COMM_TYPE, simulation_time) for ID in range(1, NUMBER_OF_ROVERS + 1)]
+        rovers = [Rover(ID, START_POSITIONS[sim_cycle][ID], TARGET_COORDINATES, WIDTH, HEIGHT, COMM_TYPE, simulation_time) for ID in range(1, NUMBER_OF_ROVERS + 1)]
                     
         # Main loop
         running = True
@@ -91,8 +90,6 @@ def main():
                     rover.active_communications = 0
  
                 mean_of_known_obstacles = sum(rover.number_of_known_obstacles for rover in rovers)/NUMBER_OF_ROVERS
-                mean_EAR_data[2*sim_cycle].append(simulation_time)
-                mean_EAR_data[2*sim_cycle+1].append(mean_of_known_obstacles/NUMBER_OF_OBSTACLES)
                 
             pygame.display.flip()
             clock.tick(50)
@@ -103,7 +100,6 @@ def main():
     #saving data to csv files after all simulation cycles        
     write_rover_times_to_file(COMM_TYPE, NUMBER_OF_ROVERS, rover_times_data, 'rover_times_data.csv')
     write_data_to_file(COMM_TYPE, CYCLES, NUMBER_OF_ROVERS, network_load_data, 'network_load_data.csv')
-    write_data_to_file(COMM_TYPE, CYCLES, NUMBER_OF_ROVERS, mean_EAR_data, 'mean_EAR_data.csv')
     
     pygame.quit()
  

@@ -14,10 +14,13 @@ NUMBER_OF_OBSTACLES = len(OBSTACLES)
 CYCLES = 1
   
 # rover specifics
-NUMBER_OF_ROVERS = 2
-COMM_TYPE = "Integrated"                  # choices: No_Comm, Timing_Selective, Content_Selective, Receiver_Selective, Integrated, Full_Comm
+NUMBER_OF_ROVERS = 50
+COMM_TYPE = "Plan_Aware"                  # choices: No_Comm, Plan_Aware, Content_Aware, CAIC, Full_Comm
 INITIAL_DISTANCE = 30                     # initial distance to any obstacles
 TARGET_COORDINATES = (110, 50)
  
 # internal simulation time step
-TIME_STEP = 0.01 
+TIME_STEP = 0.01
+
+# communication loss rate (0.0 = 0%, 0.04 = 4%, 0.08 = 8%, 0.12 = 12%)
+COM_LOSS_RATE = 0.0 
