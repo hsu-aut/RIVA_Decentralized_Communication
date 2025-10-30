@@ -174,28 +174,6 @@ def plan_aware_comm(sender, comm_candidates, instantiated_rovers, theta=0.3, hor
     # Konsumierten Kandidaten entfernen
     sender.comm_candidates.pop(0)
 
-def content_comm(sender, comm_candidates, instantiated_rovers):            # ContentBased
-    def content_assessment(sender, comm_candidates):
-        selected_comm_candidates = []
-        total_distance = sum(instance.distance_to_target for instance in instantiated_rovers.values() if not instance.reached_target)
-        num_instances = sum(1 for instance in instantiated_rovers.values() if not instance.reached_target)
-        avg_distance_to_target = total_distance / num_instances if num_instances != 0 else 0
-            
-        for candidate in comm_candidates:
-            if Polygon(candidate).distance(Point(sender.target_coordinates)) < avg_distance_to_target:
-                selected_comm_candidates.append(candidate)
-        return selected_comm_candidates
-    
-    selected_comm_candidates = content_assessment(sender, comm_candidates)
-    if selected_comm_candidates:      
-        for comm_candidate in selected_comm_candidates:
-            for receiver_id, receiver in instantiated_rovers.items():
-                if receiver != sender and not receiver.reached_target:  # Avoid sending message to itself and to instances that reached the target
-                    receiver.active_communications += 1
-                    threading.Thread(target=delayed_receive_message, args=(receiver, comm_candidate, sender)).start()
-        for comm_candidate in selected_comm_candidates:
-            sender.comm_candidates.remove(comm_candidate)           # Clear the item of comm_candidates which was just communicated
- 
 def utility_aware_comm(
     sender,
     comm_candidates,
@@ -278,22 +256,6 @@ def utility_aware_comm(
             sender.comm_candidates.remove(c)
         except ValueError:
             pass 
- 
-def receiver_comm(sender, comm_candidates, instantiated_rovers):
-    def comm_receiver_assessment(sender, instantiated_rovers):
-        comm_receiver = []
-        for receiver_id, receiver in instantiated_rovers.items():
-            if receiver != sender and not receiver.reached_target and receiver.distance_to_target > sender.distance_to_target:
-                comm_receiver.append(receiver)
-        return comm_receiver
-    
-    comm_receiver = comm_receiver_assessment(sender, instantiated_rovers)
-    if comm_receiver:    
-        for comm_candidate in comm_candidates:    
-            for receiver in comm_receiver:
-                receiver.active_communications += 1
-                threading.Thread(target=delayed_receive_message, args=(receiver, comm_candidate, sender)).start()
-            sender.comm_candidates.remove(comm_candidate)           # Clear the item of comm_candidates which was just communicated       
  
 def receiver_aware_comm(
     sender,
@@ -378,7 +340,7 @@ def receiver_aware_comm(
             pass 
  
      
-def caic_comm(sender, comm_candidates, instantiated_rovers):
+def integrated_comm(sender, comm_candidates, instantiated_rovers):
     def comm_reactivation(sender):
         start_time = sender.sim_time
         # Function to rectivate communication after delay

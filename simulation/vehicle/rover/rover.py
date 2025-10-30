@@ -98,30 +98,20 @@ class Rover:
         # perform communication
         if self.comm_type == "No_Comm":
             no_comm()
-        elif self.comm_type == "Time_Comm":
-            if self.comm_active and self.comm_candidates:
-                self.comm_active = False
-                time_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Plan_Aware":
+        elif self.comm_type == "PlaCom":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
                 plan_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Utility_Aware":
+        elif self.comm_type == "UtiCom":
             if self.comm_candidates:
                 utility_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Content_Comm":
-            if self.comm_candidates:
-                content_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Receiver_Comm":
-            if self.comm_candidates:
-                receiver_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "Receiver_Aware":
+        elif self.comm_type == "RecCom":
             if self.comm_candidates:
                 receiver_aware_comm(self, self.comm_candidates, self.instantiated_rovers)
-        elif self.comm_type == "CAIC":
+        elif self.comm_type == "IntCom":
             if self.comm_active and self.comm_candidates:
                 self.comm_active = False
-                caic_comm(self, self.comm_candidates, self.instantiated_rovers)
+                integrated_comm(self, self.comm_candidates, self.instantiated_rovers)
         else:
             if self.comm_candidates:
                 full_comm(self, self.comm_candidates, self.instantiated_rovers)
